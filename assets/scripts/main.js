@@ -112,6 +112,7 @@ let game = (_ => {
                                 {
                                     type: "button",
                                     onClick: _ => {
+                                        game.input.mouse.down = false;
                                         let offset = parseInt(prompt("Enter an offset for the index in the file names...", 0));
                                         let count = parseInt(prompt("How many do you want to generate?", 1));
                                         let countEach = parseInt(prompt("How many do you want to generate for each?", 25));
@@ -142,6 +143,7 @@ let game = (_ => {
                                 {
                                     type: "button",
                                     onClick: _ => {
+                                        game.input.mouse.down = false;
                                         alert("Upload the base image...");
                                         Bagel.upload(url => {
                                             let img = new Image();
@@ -162,7 +164,6 @@ let game = (_ => {
                                             })(img);
                                             img.src = url;
                                         });
-                                        game.input.mouse.down = false;
                                     },
                                     onHover: "Preview some generated data",
                                     color: "green",
