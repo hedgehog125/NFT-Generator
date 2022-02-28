@@ -85,17 +85,17 @@ let game = (_ => {
                 imgs: [
                     {
                         id: "Upload",
-                        src: "../assets/imgs/upload.png"
+                        src: "assets/imgs/upload.png"
                     },
                     {
                         id: "Download",
-                        src: "../assets/imgs/download.png"
+                        src: "assets/imgs/download.png"
                     }
                 ]
             },
             plugins: [
                 {
-                    src: "../assets/plugins/gui.js"
+                    src: "assets/plugins/gui.js"
                 }
             ],
             sprites: [
