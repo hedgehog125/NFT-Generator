@@ -10,44 +10,29 @@ let game = (_ => {
                 let colors = [];
                 let i = 0;
                 while (i < count) {
-                    let cornerColors = [];
                     let a = 0;
                     while (a < 4) {
-                        let color = [];
                         let c = 0;
                         while (c < 3) {
-                            color.push(Math.round(Math.random() * 255));
+                            colors.push(Math.round(Math.random() * 255));
                             c++;
                         }
-
-                        /*
-                        let lastColor = colors[colors.length - 1];
-                        if (lastColor) {
-                            lastColor = lastColor[a];
-                            let totalDiff = color.reduce((value, accumulator, index) => accumulator + Math.abs(value - lastColor[index]), 0);
-                            if (totalDiff < minDiff) { // Too similar, try again
-                                continue;
-                            }
-                        }
-                        */
-
-                        cornerColors.push(color);
                         a++;
                     }
-
-                    colors.push(cornerColors);
                     i++;
                 }
 
                 return JSON.stringify({
                     size: size,
+                    variations: count,
                     colors: colors
                 });
             },
             displayNFTs: (img, data) => {
                 let size = data.size * Math.min(img.width, img.height);
+                let a = 0;
                 let i = 0;
-                while (i < data.colors.length) {
+                while (i < data.variations) {
                     let canvas = document.createElement("canvas");
                     canvas.width = img.width;
                     canvas.height = img.height;
@@ -69,8 +54,9 @@ let game = (_ => {
                     for (let c in positions) {
                         let pos = positions[c];
 
-                        ctx.fillStyle = "rgb(" + data.colors[i][c] + ")";
+                        ctx.fillStyle = "rgb(" + data.colors.slice(a, a + 3) + ")";
                         ctx.fillRect(pos[0], pos[1], size, size);
+                        a += 3;
                     }
 
                     document.body.appendChild(canvas);
