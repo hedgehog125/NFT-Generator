@@ -5,9 +5,13 @@ let game = (_ => {
         id: "NFT-Generator",
         state: "main",
         vars: {
-            generateNFTs: (count, size) => {
+            generateNFTs: (count, size, valueRange) => {
                 size /= 100;
+                let valueMultiple = valueRange[1] - valueRange[0];
+                let valueAdd = valueRange[0];
+
                 let colors = [];
+                let values = [];
                 let i = 0;
                 while (i < count) {
                     let a = 0;
@@ -19,13 +23,16 @@ let game = (_ => {
                         }
                         a++;
                     }
+
+                    values.push(Math.round((Math.random() * valueMultiple) + valueAdd));
                     i++;
                 }
 
                 return JSON.stringify({
                     size: size,
                     variations: count,
-                    colors: colors
+                    colors: colors,
+                    values: values
                 });
             },
             displayNFTs: (img, data) => {
@@ -103,6 +110,8 @@ let game = (_ => {
                                         let count = parseInt(prompt("How many do you want to generate?", 1));
                                         let countEach = parseInt(prompt("How many do you want to generate for each?", 25));
                                         let pixelSize = parseInt(prompt("What size pixel? (as a percentage of the minimum dimension)", 15));
+                                        let minValue = parseInt(prompt("What's the minimum price for one of these?", 200));
+                                        let maxValue = parseInt(prompt("What's the maximum price for one of these?", 250));
 
 
                                         let i = offset;
@@ -111,7 +120,8 @@ let game = (_ => {
                                             Bagel.download(
                                                 game.vars.generateNFTs(
                                                     countEach,
-                                                    pixelSize
+                                                    pixelSize,
+                                                    [minValue, maxValue]
                                                 ),
                                                 `NFT_data_${i}.json`
                                             );
